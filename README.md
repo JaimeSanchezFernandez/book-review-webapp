@@ -1,57 +1,56 @@
-BookVerse – Aplicación Web de Reseñas de Libros
+📚 BookVerse – Aplicación Web de Reseñas de Libros
 
-Proyecto final — Programación de Servidores Web (CUNEF)
-Autores: Jaime Sánchez Fernández & Eduardo
+Proyecto final – Programación de Servidores Web (CUNEF)
+Autores: Jaime Sánchez , Eduardo Hortelano y Lucia Parreño
 
-Descripción del proyecto
+🚀 Descripción del proyecto
 
-BookVerse es una aplicación web full-stack diseñada para gestionar libros, usuarios y reseñas.
-Permite:
+BookVerse es una aplicación web full stack que permite gestionar libros, usuarios y reseñas.
+Incluye:
 
-Registrarse e iniciar sesión
+Registro e inicio de sesión
 
-Ver libros disponibles
+API REST (Node.js + Express)
 
-Añadir libros nuevos
+Base de datos en MongoDB Atlas
 
-Escribir y leer reseñas
+Frontend HTML, CSS y JS con lógica 100% cliente
 
-Ver detalles de cada libro
+Panel de libros, detalles, reseñas y filtrado
 
-Mantener sesiones con JWT
-
-Gestión completa desde un backend con API REST
-
-Está desarrollada con HTML, CSS y JavaScript (frontend) y Node.js + Express + MongoDB (backend).
-
-Tecnologías utilizadas
+🛠️ Tecnologías utilizadas
 Frontend
 
-HTML5 semántico
+HTML semántico
 
-CSS3 (layout, diseño responsive y estilos personalizados, sin frameworks)
+CSS propio
 
-JavaScript vanilla (API Fetch, manejo del DOM)
+JavaScript (fetch API)
 
-Sistema de componentes simples para las vistas
+Componentes dinámicos renderizados con JS
 
 Backend
 
 Node.js + Express
 
-Mongoose (modelos y validación)
+MongoDB + Mongoose
 
 JWT (autenticación)
 
-BcryptJS (cifrado de contraseñas)
+CORS
 
-CORS y Dotenv
+Dotenv
 
-Base de datos
+DevOps / Infraestructura
+
+GitHub (proyecto completo)
+
+Docker (implementación opcional del profesor)
 
 MongoDB Atlas (base de datos en la nube)
 
-Estructura del proyecto book-review-webapp/
+📁 Estructura del proyecto
+book-review-webapp/
 │── backend/
 │   ├── src/
 │   │   ├── config/db.js
@@ -68,160 +67,106 @@ Estructura del proyecto book-review-webapp/
 │   ├── app.js
 │   └── Dockerfile
 │
-│── docker-compose.yml
+│── docker-compose.yml   (opcional)
 └── README.md
 
+🧩 Backend (Node + Express + MongoDB)
+🔌 Conexión a la base de datos
 
-Configuración de la base de datos (MongoDB Atlas)
+En backend/src/config/db.js:
 
-En el archivo backend/.env se usa:
+mongoose.connect(process.env.MONGO_URI)
 
-MONGO_URI=mongodb+srv://xxxxx.mongodb.net/bookverse
-JWT_SECRET=supersecreto123
+
+En .env:
+
+MONGO_URI=mongodb+srv://...
+JWT_SECRET=loquesea123
 PORT=5000
 
+🔐 Autenticación JWT
 
-Solo necesitas:
+Registro de usuarios
 
-Crear un cluster en MongoDB Atlas
+Login con email y contraseña
 
-Obtener el connection string
+Token guardado en localStorage (frontend)
 
-Sustituirlo en MONGO_URI
+Middleware authMiddleware.js protege rutas privadas
 
-Ejecución del proyecto (modo sin Docker)
-1. Instalar dependencias
+🎨 Frontend
+Componentes principales
 
-En /backend:
+index.html → Página principal con login + listado de libros
 
-npm install
+app.js → Toda la lógica del cliente (fetch, renderizado, eventos)
 
+styles.css → Estilos propios con modo oscuro
 
-En /frontend (no usa node, solo archivos estáticos).
+Funcionalidades
 
-2. Iniciar el backend
-node src/app.js
+Login / registro
 
+Visualización del catálogo de libros
 
-El servidor abre en:
+Detalles del libro
 
-http://localhost:5000
+Añadir reseñas
 
-3. Abrir el frontend
+Mostrar reseñas existentes
 
-Solo debes abrir el archivo:
+🐳 Docker (opcional según el profesor)
 
-frontend/index.html
+El profesor indicó que no es obligatorio usar Docker si se usa MongoDB Atlas.
 
-
-O usar extensión Live Server en VS Code.
-
-Ejecución con Docker (opcional)
-
-El profesor indicó que Docker era opcional siempre que se usara MongoDB Atlas.
-
-Pero igualmente el proyecto incluye contenedores listos:
+Pero el proyecto incluye soporte Docker por si se usa localmente.
 
 docker compose up --build
 
+▶️ Cómo ejecutar el proyecto sin Docker
+1. Clonar el repositorio
+git clone https://github.com/JaimeSanchezFernandez/book-review-webapp.git
+cd book-review-webapp/backend
 
-Servicios incluidos:
+2. Instalar dependencias
+npm install
 
-backend
+3. Crear archivo .env
+MONGO_URI=mongodb+srv://...
+JWT_SECRET=mi_clave
+PORT=5000
 
-frontend (servido por NGINX)
+4. Ejecutar backend
+node src/app.js
 
-mongo (solo si se desactiva Mongo Atlas)
+5. Abrir frontend
 
-Endpoints principales de la API
-Auth
-Método	Endpoint	Descripción
-POST	/api/auth/register	Registrar usuario
-POST	/api/auth/login	Iniciar sesión
-Libros
-Método	Endpoint	Descripción
-GET	/api/books	Lista de libros
-POST	/api/books	Crear libro
-GET	/api/books/:id	Ver detalles
-Reseñas
-Método	Endpoint	Descripción
-POST	/api/reviews/:bookId	Añadir reseña
-GET	/api/reviews/:bookId	Ver reseñas del libro
+Abrir frontend/index.html en el navegador.
 
-Frontend: explicación técnica
+🧪 Pruebas realizadas
 
-El frontend está construido sin frameworks, utilizando:
+Registro e inicio de sesión ✔️
 
-HTML5 semántico
+Tokens y rutas protegidas ✔️
 
-Estructuras como <nav>, <header>, <section>, <article> para mejorar claridad y accesibilidad.
+CRUD correcto de libros y reseñas ✔️
 
-CSS responsivo
+Base de datos Atlas funcionando ✔️
 
-Flexbox
+Frontend renderiza los datos dinámicamente ✔️
 
-Estilos personalizados
+📦 Estado final del proyecto
 
-Paleta oscura y moderna
+✔️ Funcionalidad completa backend + frontend
 
-Sin Bootstrap ni Tailwind (por decisión del curso)
+✔️ Base de datos en la nube
 
-JavaScript organizado
+✔️ Código organizado y documentado
 
-El archivo app.js gestiona:
+✔️ Proyecto subido a GitHub
 
-Peticiones Fetch a la API
+✔️ Despliegue local sin errores
 
-Login y registro
+👨‍🏫 Autoría
 
-Renderizado dinámico de libros
-
-Gestión de reseñas
-
-Control de sesión con localStorage
-
-Backend: arquitectura
-
-Organizado en capas:
-
-models/ → Esquemas de Mongoose
-
-controllers/ → Lógica de negocio
-
-routes/ → Endpoints REST
-
-middleware/ → Autenticación JWT
-
-config/db.js → Conexión a MongoDB Atlas
-
-🧪 Datos de ejemplo
-
-El cluster de MongoDB Atlas contiene:
-
-Usuarios reales creados durante las pruebas
-
-Libros añadidos por nosotros
-
-Resesñas asociadas
-
-Conclusiones
-
-BookVerse cumple con todos los requisitos del proyecto:
-
-Arquitectura full-stack
-
-Conexión real con base de datos en la nube
-
-API REST bien estructurada
-
-Autenticación con JWT
-
-Frontend funcional y atractivo
-
-Código limpio y documentado
-
-👥 Autores
-
-Jaime Sánchez Fernández
-
-Eduardo H.
+Proyecto desarrollado para la asignatura Programación de Servidores Web (CUNEF).
