@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>BookVerse · Reseñas de libros</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header__content">
+        <h1 class="logo">BookVerse</h1>
+        <nav class="nav">
+          <button id="btn-nav-home" class="btn btn-link">Inicio</button>
+          <button id="btn-nav-login" class="btn btn-link">
+            Entrar / Registrarse
+          </button>
+        </nav>
+        <div id="user-info" class="user-info hidden">
+          <span id="user-email" class="user-info__email"></span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container main__grid">
+        <!-- Columna izquierda: auth + crear libro -->
+        <aside class="sidebar">
+          <!-- Caja de mensajes -->
+          <div id="global-message" class="alert hidden"></div>
+
+          <!-- Auth -->
+          <section id="auth-card" class="card">
+            <div class="card__header card__header--tabs">
+              <button id="tab-login" class="tab tab--active">
+                Iniciar sesión
+              </button>
+              <button id="tab-register" class="tab">Registrarse</button>
+            </div>
+            <div class="card__body">
+              <!-- Login -->
+              <form id="login-form" class="form">
+                <div class="form__group">
+                  <label for="login-email">Email</label>
+                  <input type="email" id="login-email" required />
+                </div>
+                <div class="form__group">
+                  <label for="login-password">Contraseña</label>
+                  <input type="password" id="login-password" required />
+                </div>
+                <button class="btn btn-primary btn-full" type="submit">
+                  Entrar
+                </button>
+              </form>
+
+              <!-- Registro -->
+              <form id="register-form" class="form hidden">
+                <div class="form__group">
+                  <label for="register-username">Nombre de usuario</label>
+                  <input type="text" id="register-username" required />
+                </div>
+                <div class="form__group">
+                  <label for="register-email">Email</label>
+                  <input type="email" id="register-email" required />
+                </div>
+                <div class="form__group">
+                  <label for="register-password">Contraseña</label>
+                  <input
+                    type="password"
+                    id="register-password"
+                    required
+                    minlength="6"
+                  />
+                </div>
+                <div class="form__group">
+                  <label for="register-password2">Repetir contraseña</label>
+                  <input
+                    type="password"
+                    id="register-password2"
+                    required
+                    minlength="6"
+                  />
+                </div>
+                <button class="btn btn-primary btn-full" type="submit">
+                  Crear cuenta
+                </button>
+              </form>
+            </div>
+          </section>
+
+          <!-- Crear libro (solo logueado) -->
+          <section id="new-book-section" class="card hidden">
+            <div class="card__header">
+              <h2 class="card__title">Añadir libro</h2>
+            </div>
+            <div class="card__body">
+              <form id="new-book-form" class="form">
+                <div class="form__group">
+                  <label for="book-title">Título</label>
+                  <input type="text" id="book-title" required />
+                </div>
+                <div class="form__group">
+                  <label for="book-author">Autor</label>
+                  <input type="text" id="book-author" required />
+                </div>
+                <div class="form__group">
+                  <label for="book-description">Descripción</label>
+                  <textarea
+                    id="book-description"
+                    rows="3"
+                    required
+                  ></textarea>
+                </div>
+                <div class="form__group">
+                  <label for="book-cover">URL de portada (opcional)</label>
+                  <input
+                    type="url"
+                    id="book-cover"
+                    placeholder="https://..."
+                  />
+                </div>
+                <button class="btn btn-success btn-full" type="submit">
+                  Guardar libro
+                </button>
+              </form>
+            </div>
+          </section>
+        </aside>
+
+        <!-- Columna derecha: contenido principal -->
+        <section class="content">
+          <!-- Lista de libros -->
+          <section id="books-section" class="card">
+            <div class="card__header card__header--flex">
+              <h2 class="card__title">Libros</h2>
+              <span id="books-count" class="badge">0</span>
+            </div>
+            <div id="books-list" class="books-list">
+              <!-- Se rellenará desde JS -->
+            </div>
+          </section>
+
+          <!-- Detalle de libro -->
+          <section id="book-detail-section" class="card hidden">
+            <div class="card__header card__header--flex">
+              <h2 id="detail-title" class="card__title">
+                Detalle del libro
+              </h2>
+              <button
+                id="btn-close-detail"
+                class="btn btn-link btn-sm"
+                type="button"
+              >
+                &times; Cerrar
+              </button>
+            </div>
+            <div class="card__body detail">
+              <div class="detail__header">
+                <img
+                  id="detail-cover"
+                  class="detail__cover"
+                  src=""
+                  alt="Portada del libro"
+                />
+                <div>
+                  <p class="detail__author" id="detail-author"></p>
+                  <p class="detail__meta" id="detail-meta"></p>
+                </div>
+              </div>
+
+              <p id="detail-description" class="detail__description"></p>
+
+              <hr />
+
+              <!-- Formulario de reseñas (solo logueado) -->
+              <div
+                id="review-form-wrapper"
+                class="detail__review-form hidden"
+              >
+                <h3>Escribir una reseña</h3>
+                <form id="review-form" class="form">
+                  <div class="form__group">
+                    <label for="review-rating">Puntuación</label>
+                    <select id="review-rating" required>
+                      <option value="">Selecciona</option>
+                      <option value="5">★★★★★ (5)</option>
+                      <option value="4">★★★★☆ (4)</option>
+                      <option value="3">★★★☆☆ (3)</option>
+                      <option value="2">★★☆☆☆ (2)</option>
+                      <option value="1">★☆☆☆☆ (1)</option>
+                    </select>
+                  </div>
+                  <div class="form__group">
+                    <label for="review-comment">Comentario</label>
+                    <textarea
+                      id="review-comment"
+                      rows="3"
+                      required
+                    ></textarea>
+                  </div>
+                  <button class="btn btn-primary" type="submit">
+                    Publicar reseña
+                  </button>
+                </form>
+              </div>
+
+              <p id="review-login-hint" class="muted">
+                Inicia sesión para poder escribir una reseña.
+              </p>
+
+              <hr />
+
+              <h3>Reseñas</h3>
+              <div id="reviews-list" class="reviews-list">
+                <!-- Se rellenará desde JS -->
+              </div>
+            </div>
+          </section>
+
+          <!-- Panel de cuenta de usuario -->
+          <section id="account-section" class="card hidden">
+            <div class="card__header">
+              <h2 class="card__title">Mi cuenta</h2>
+            </div>
+            <div class="card__body">
+              <p>
+                <strong>Nombre de usuario:</strong>
+                <span id="account-username">—</span>
+              </p>
+              <p>
+                <strong>Email:</strong>
+                <span id="account-email">—</span>
+              </p>
+              <p>
+                <strong>Nº de libros creados:</strong>
+                <span id="account-books-count">0</span>
+              </p>
+
+              <hr />
+
+              <button id="btn-logout" class="btn btn-secondary" type="button">
+                Cerrar sesión
+              </button>
+            </div>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <!-- Plantilla de tarjeta de libro -->
+    <template id="book-card-template">
+      <article class="book-card">
+        <img class="book-card__cover" src="" alt="" />
+        <div class="book-card__body">
+          <h3 class="book-card__title"></h3>
+          <p class="book-card__author"></p>
+          <p class="book-card__description"></p>
+          <p class="book-card__meta"></p>
+          <button class="btn btn-outline btn-sm book-card__btn-detail">
+            Ver detalle
+          </button>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+
+
