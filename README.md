@@ -51,10 +51,8 @@ Base de datos
 
 MongoDB Atlas (base de datos en la nube)
 
-Estructura del proyecto
-book-review-webapp/
-│
-├── backend/
+Estructura del proyecto book-review-webapp/
+│── backend/
 │   ├── src/
 │   │   ├── config/db.js
 │   │   ├── controllers/
@@ -62,16 +60,17 @@ book-review-webapp/
 │   │   ├── routes/
 │   │   └── app.js
 │   ├── package.json
-│   ├── Dockerfile
+│   └── Dockerfile
 │
-├── frontend/
+│── frontend/
 │   ├── index.html
 │   ├── styles.css
 │   ├── app.js
 │   └── Dockerfile
 │
-├── docker-compose.yml
+│── docker-compose.yml
 └── README.md
+
 
 Configuración de la base de datos (MongoDB Atlas)
 
